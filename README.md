@@ -57,8 +57,7 @@ curl -X POST http://localhost:5000/api/expenses
 
 ## Author
 
-Your Name - Full-Stack Developer
-
+Shidoariki
 ## License
 
 MIT
