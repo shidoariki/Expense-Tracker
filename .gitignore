@@ -5,3 +5,8 @@ node_modules/
 dist/
 .idea/
 .vscode/
+
+/generated/prisma
+
+.vercel
+.env*.local
