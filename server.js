@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-url.vercel.app'] 
+    ? ['https://expense-tracker-rho-red-84.vercel.app'] 
     : '*',
   credentials: true
 }));
