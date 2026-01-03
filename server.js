@@ -4,6 +4,7 @@ require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const prisma = new PrismaClient();
 const app = express();
 
@@ -178,7 +179,7 @@ app.post('/api/expenses', verifyToken, async (req, res) => {
   }
 });
 
-// ROUTE 5: UPDATE expense (with ownership check)
+// ROUTE 5: UPDATE expense (ownership check)
 app.put('/api/expenses/:id', verifyToken, async (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -411,11 +412,18 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-// Start server
+// ✅ VERCEL FIX: Use serverless function export
 const PORT = process.env.PORT || 5000;
-seedData().then(() => {
-  app.listen(PORT, () => {
-    console.log(`✅ Server + Database running on http://localhost:${PORT}`);
-    console.log(`🔗 Test: http://localhost:${PORT}/api/health`);
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  seedData().then(() => {
+    app.listen(PORT, () => {
+      console.log(`✅ Server + Database running on http://localhost:${PORT}`);
+      console.log(`🔗 Test: http://localhost:${PORT}/api/health`);
+    });
   });
-});
+}
+
+// For Vercel serverless export
+module.exports = app;
