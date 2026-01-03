@@ -18,8 +18,6 @@ if (process.env.NODE_ENV === 'production') {
 
 const express = require('express');
 const cors = require('cors');
-const express = require('express');
-const cors = require('cors');
 require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
