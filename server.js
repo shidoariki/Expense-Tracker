@@ -3,7 +3,7 @@ const { execSync } = require("child_process");
 async function runMigrations() {
   try {
     console.log("Running Prisma migrations...");
-    execSync("npx prisma migrate deploy", { stdio: "inherit" });
+    execSync("npx prisma db push", { stdio: "inherit" });
     console.log("✅ Migrations completed");
   } catch (error) {
     console.warn("⚠️ Migration warning:", error.message);
