@@ -451,18 +451,28 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-// ✅ VERCEL FIX: Use serverless function export
 const PORT = process.env.PORT || 5000;
 
-// For local development
-if (process.env.NODE_ENV !== "production") {
-  seedData().then(() => {
-    app.listen(PORT, () => {
-      console.log(`✅ Server + Database running on http://localhost:${PORT}`);
-      console.log(`🔗 Test: http://localhost:${PORT}/api/health`);
-    });
+// Start server function
+async function startServer() {
+  // Run migrations in production
+  if (process.env.NODE_ENV === "production") {
+    await runMigrations();
+  }
+
+  // Start listening
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`🔗 Environment: ${process.env.NODE_ENV || "development"}`);
   });
 }
 
+// Start the server
+startServer().catch((error) => {
+  console.error("❌ Failed to start server:", error);
+  process.exit(1);
+});
+
 // For Vercel serverless export
 module.exports = app;
+
