@@ -30,7 +30,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://expense-tracker-rho-red-84.vercel.app"]
+        ? ["https://expense-tracker-frontend-amber-three.vercel.app"]
         : "*",
     credentials: true,
   })
